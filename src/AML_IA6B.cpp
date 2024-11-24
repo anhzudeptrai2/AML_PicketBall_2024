@@ -7,7 +7,6 @@
 int32_t volume2; // Xung đầu vào từ kênh 1
 int32_t volume4; // Xung đầu vào từ kênh 2
 
-bool debug_mode = 1;
 
 void AML_IA6B_ReadPulseValues()
 {
@@ -34,38 +33,37 @@ void AML_IA6B_ControlMotor()
     {
         AML_ControlMotor_PWM_Left(50, 50); // tien trai
         AML_ControlMotor_PWM_Right(120, 120);
-        if (debug_mode)
-         Serial.println("Re Phai");
+        //  Serial.println("Re Phai");
     }
     else if (volume2 < 1122 && volume2 > 1104 && volume4 < 1987 && volume4 > 1968)
     {
         AML_ControlMotor_PWM_Left(120, 120);
         AML_ControlMotor_PWM_Right(50, 50);
-        Serial.println("Re Trai");
+        // Serial.println("Re Trai");
     }
     else if (volume2 > 1090 && volume2 < 1110 && volume4 < 1108 && volume4 > 1090)
     {
         AML_ControlMotor_PWM_Left(-120, -120); // Lui  trai
         AML_ControlMotor_PWM_Right(-50, -50);
-        Serial.println("Lui Trai");
+        //     Serial.println("Lui Trai");
     }
     else if (volume2 < 1975 && volume2 > 1968 && volume4 < 1108 && volume4 > 1103)
     {
         AML_ControlMotor_PWM_Left(-50, -50); // Lui  trai
         AML_ControlMotor_PWM_Right(-120, -120);
-        Serial.println("Lui Phai");
+        // Serial.println("Lui Phai");
     }
     else if (volume4 < 2000 && volume4 > 1900)
     {
         AML_ControlMotor_PWM_Left(80, 80); // Cả hai tín hiệu đều lớn -> Di chuyển tiến
         AML_ControlMotor_PWM_Right(80, 80);
-        Serial.println("Tien");
+        // Serial.println("Tien");
     }
     else if (volume2 < 1600 && volume2 > 1500 && volume4 < 1108 && volume4 > 1103)
     {
         AML_ControlMotor_PWM_Left(-80, -80); // Cả hai tín hiệu đều nhỏ -> Lùi
         AML_ControlMotor_PWM_Right(-80, -80);
-        Serial.println("Lui");
+        // Serial.println("Lui");
     }
     else if (volume4 < 1699 && volume4 > 1500)
     {
