@@ -5,9 +5,11 @@
 #include <AML_IMU.h>
 
 int32_t Base_PWM = 120;
+
 float Kp = 11;
 float Ki = 0.01;
 float Kd = 5.5;
+
 int  Target_AngleZ = 0;
 float Integral = 0;
 float Previous_Error = 0;
@@ -19,10 +21,13 @@ void AML_ControlPID_Straight()
   float Current_AngleZ = AML_IMU_GetAngle();
   Smoothed_Angle = 0.9 * Smoothed_Angle + 0.1 * Current_AngleZ;
   int32_t Error = (Target_AngleZ - Smoothed_Angle);
+  
   Integral += Error;
   Integral = constrain(Integral, -100, 100);
+  
   float Derivative = Error - Previous_Error;
   float Fix_PWM = Kp * Error + Ki * Integral + Kd * Derivative;
+  
   Fix_PWM = constrain(Fix_PWM, -Base_PWM, Base_PWM);
 
   int32_t FL_PWM, FR_PWM, BL_PWM, BR_PWM;
@@ -84,5 +89,5 @@ void loop()
   AML_IMU_SerialEvent();
   AML_IMU_Read();
   AML_IMU_GetAngle();
-  AML_ControlPID_Straight;
+  AML_ControlPID_Straight();
 }
